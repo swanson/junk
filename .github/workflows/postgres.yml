@@ -1,4 +1,4 @@
-name: postgres-alpine
+name: Postgres container benchmarks
 on: [push]
 
 jobs:
@@ -59,7 +59,7 @@ jobs:
           POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }} # get randomly assigned published port
 
   vanilla_nohealth:
-    name: Benchmark (Vanilla)
+    name: Benchmark (Vanilla, no health checks)
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -85,7 +85,7 @@ jobs:
           POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }} # get randomly assigned published port
 
   alpine_nohealth:
-    name: Benchmark (Alpine)
+    name: Benchmark (Alpine, no health checks)
     runs-on: ubuntu-latest
     services:
       postgres:
