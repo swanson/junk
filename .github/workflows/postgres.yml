@@ -166,7 +166,7 @@ jobs:
           POSTGRES_HOST: localhost
           POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }} # get randomly assigned published port
 
- alpine_extra:
+  alpine_extra:
     name: Benchmark (Alpine, extra options)
     runs-on: ubuntu-latest
     services:
