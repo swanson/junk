@@ -179,8 +179,7 @@ jobs:
         ports:
           # will assign a random free host port
           - 5432/tcp
-        options: --tmpfs --disable-content-trust
-
+        options: --disable-content-trust --mount type=tmpfs,destination=/app
     steps:
       - uses: actions/checkout@v1
       - run: npm ci
