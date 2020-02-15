@@ -58,6 +58,62 @@ jobs:
           POSTGRES_HOST: localhost
           POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }} # get randomly assigned published port
 
+  vanilla_aggro:
+    name: Benchmark (Vanilla, aggressive health checks)
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:11
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          # will assign a random free host port
+          - 5432/tcp
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 0s --health-timeout 1s --health-retries 50
+
+    steps:
+      - uses: actions/checkout@v1
+      - run: npm ci
+        working-directory: ./postgres
+      - run: node client.js
+        working-directory: ./postgres
+        env:
+          # use localhost for the host here because we are running the job on the VM.
+          # If we were running the job on in a container this would be postgres
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }} # get randomly assigned published port
+
+  alpine_aggro:
+    name: Benchmark (Alpine, aggressive health checks)
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:11-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          # will assign a random free host port
+          - 5432/tcp
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 0s --health-timeout 1s --health-retries 50
+
+    steps:
+      - uses: actions/checkout@v1
+      - run: npm ci
+        working-directory: ./postgres
+      - run: node client.js
+        working-directory: ./postgres
+        env:
+          # use localhost for the host here because we are running the job on the VM.
+          # If we were running the job on in a container this would be postgres
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }} # get randomly assigned published port
+
   vanilla_nohealth:
     name: Benchmark (Vanilla, no health checks)
     runs-on: ubuntu-latest
