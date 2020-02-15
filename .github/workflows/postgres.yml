@@ -3,7 +3,7 @@ on: [push]
 
 jobs:
   vanilla:
-    name: Benchmark
+    name: Benchmark (Vanilla)
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -12,7 +12,10 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_DB: postgres
           POSTGRES_PASSWORD: postgres
-        ports: ["5432:5432"]
+        ports:
+          - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - uses: actions/checkout@v1
       - run: npm ci
@@ -26,7 +29,7 @@ jobs:
           POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
 
   alpine:
-    name: Benchmark
+    name: Benchmark (Alpine)
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -35,7 +38,10 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_DB: postgres
           POSTGRES_PASSWORD: postgres
-        ports: ["5432:5432"]
+        ports:
+          - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - uses: actions/checkout@v1
       - run: npm ci
