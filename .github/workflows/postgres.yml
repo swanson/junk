@@ -72,7 +72,7 @@ jobs:
           # will assign a random free host port
           - 5432/tcp
         # needed because the postgres container does not provide a healthcheck
-        options: --health-cmd pg_isready --health-interval 500ms --health-timeout 1s --health-retries 50
+        options: --health-cmd pg_isready --health-interval 10ms --health-timeout 500ms --health-retries 15
 
     steps:
       - uses: actions/checkout@v1
@@ -100,7 +100,7 @@ jobs:
           # will assign a random free host port
           - 5432/tcp
         # needed because the postgres container does not provide a healthcheck
-        options: --health-cmd pg_isready --health-interval 500ms --health-timeout 1s --health-retries 50
+        options: --health-cmd pg_isready --health-interval 10ms --health-timeout 500ms --health-retries 15
 
     steps:
       - uses: actions/checkout@v1
