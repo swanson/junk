@@ -179,7 +179,7 @@ jobs:
         ports:
           # will assign a random free host port
           - 5432/tcp
-        options: --tmpfs --disable-content-trust -c fsync=off
+        options: --tmpfs --disable-content-trust
 
     steps:
       - uses: actions/checkout@v1
