@@ -197,7 +197,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: circleci/postgres:11-alphine-ram
+        image: circleci/postgres:11-alpine-ram
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
