@@ -1,0 +1,27 @@
+name: postgres-alpine
+on: [push]
+
+jobs:
+  vanilla:
+    name: Benchmark
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:11
+        env:
+          POSTGRES_USER: test_user
+          POSTGRES_DB: test_db
+          POSTGRES_PASSWORD: ""
+        ports: ["5432:5432"]
+
+  alpine:
+    name: Benchmark
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:11-alpine
+        env:
+          POSTGRES_USER: test_user
+          POSTGRES_DB: test_db
+          POSTGRES_PASSWORD: ""
+        ports: ["5432:5432"]
